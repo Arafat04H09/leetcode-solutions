@@ -4,13 +4,21 @@ class Solution(object):
         :type deliciousness: List[int]
         :rtype: int
         """
-        m = defaultdict(int)
-        c = 0
-        pwOf2 = [2**i for i in range(22)]
+        # keep track of powers of 2
+        # have count 
+        # defaultdict()
 
-        for d in deliciousness:
-            for pw in pwOf2:
-                c += m[pw - d]
-            m[d] += 1
+        powOf2 = [2 ** i for i in range(22)]
+        count = 0 
+        d = defaultdict(int)
 
-        return c % ((10**9) + 7)
+        for value in deliciousness:
+            
+            for p in powOf2:
+                if p - value in d:
+                    count += d[p - value]
+                    count %= ((10**9 + 7))
+            
+            d[value] += 1
+        
+        return count
