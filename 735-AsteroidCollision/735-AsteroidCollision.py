@@ -1,20 +1,17 @@
-class Solution(object):
-    def asteroidCollision(self, asteroids):
-        """
-        :type asteroids: List[int]
-        :rtype: List[int]
-        """
-        stack = []
+ s = []
+        for a in asteroids:
+            while s and s[-1] > 0 and a < 0:
+                if s[-1] + a < 0: s.pop()
+                elif s[-1] + a > 0: break    
+                else: s.pop(); break
+            else: s.append(a)        
+        return s
 
-        for asteroid in asteroids:
-            while stack and asteroid < 0 < stack[-1]:
-                if stack[-1] < abs(asteroid):  
-                    stack.pop()
-                    continue
-                elif stack[-1] == abs(asteroid): 
-                    stack.pop()
-                break
-            else:
-                stack.append(asteroid)
-        
-        return stack
+# This solution didn't pass [8, -8] test case
+ s = []
+        for a in asteroids:
+            while s and s[-1] > 0 and a < 0:
+                if s[-1] + a <= 0: s.pop()
+                elif s[-1] + a > 0: break    
+            else: s.append(a)        
+        return s
