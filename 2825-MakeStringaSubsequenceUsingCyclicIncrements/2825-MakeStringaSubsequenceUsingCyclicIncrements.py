@@ -12,18 +12,16 @@ class Solution(object):
             return True
 
         i2 = 0
+        n2 = len(str2)
 
-        def nextChar(ch):
-            if ch == 'z':
-                return 'a'
-            else:
-                return chr(ord(ch) + 1)
-
-        for _, ch in enumerate(str1):
-            if ch == str2[i2] or nextChar(ch) == str2[i2]:
+        for ch in str1:
+            next_ch = 'a' if ch == 'z' else chr(ord(ch) + 1)
+            
+            if ch == str2[i2] or next_ch == str2[i2]:
                 i2 += 1
-            if i2 == len(str2):
-                return True
+                if i2 == n2:
+                    return True
+
         
         return False
 
