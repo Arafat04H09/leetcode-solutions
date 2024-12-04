@@ -7,6 +7,9 @@ class Solution(object):
         """
         if len(str2) > len(str1):
             return False
+        
+        if len(str2) == 0:
+            return True
 
         i2 = 0
 
