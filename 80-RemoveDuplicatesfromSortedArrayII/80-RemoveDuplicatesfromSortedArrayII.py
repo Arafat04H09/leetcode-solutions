@@ -4,22 +4,14 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        k = len(nums)
-        currentNum = None
-        count = 0
-        i = 0
+        if len(nums) < 3:
+            return len(nums)
+        
+        slow = 2
 
-        while i < len(nums):
-            if nums[i] == currentNum:
-                count += 1
-                if count > 2:
-                    nums.pop(i)
-                    k -= 1
-                else:
-                    i += 1
-            else:
-                currentNum = nums[i]
-                count = 1
-                i += 1
+        for fast in range(2, len(nums)):
+            if nums[fast] != nums[slow - 2]:
+                nums[slow] = nums[fast]
+                slow += 1 
 
-        return 
+        return slow 
