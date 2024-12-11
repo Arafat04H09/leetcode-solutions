@@ -1,9 +1,13 @@
-pointer = head
-num = 0
-while pointer:
-    pointer = pointer.next
-    num+=1
-    if num > 99999:
-        return True
+def hasCycle(self, head):
+    slow = fast = head
+    while fast and fast.next:
+        fast = fast.next.next
+        slow = slow.next
+        if slow == fast:
+            return True
+    return False
 
-return False
+# 16 / 16 test cases passed.
+# Status: Accepted
+# Runtime: 76 ms
+# 96.56%
