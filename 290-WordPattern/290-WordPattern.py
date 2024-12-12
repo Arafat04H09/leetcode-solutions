@@ -1,0 +1,1 @@
+if len(set(p)) != len(set(words)): return False # for the case w = ['dog', 'cat'] and p = 'aa'
