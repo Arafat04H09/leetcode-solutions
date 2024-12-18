@@ -1,22 +1,21 @@
-class Solution(object):
-    def longestOnes(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: int
-        """
-        start = 0
-        maxLen = 0
+public int longestOnes(int[] A, int K) {
+    int left = 0;
+    int right = 0;
+    int max = 0;
+    
+    int numZeroes = 0;
+    for (right= 0; right<A.length; right++) {
 
-        for end in range(len(nums)):
-            if nums[end] == 0:
-                k -= 1
-
-            while k < 0:
-                if nums[start] == 0:
-                    k += 1
-                start += 1
-
-            maxLen = max(maxLen, end - start + 1)
+        if (A[right]==0) numZeroes++;
         
-        return maxLen
+        if (numZeroes > K) {
+            if (A[left]==0) numZeroes--;
+            left ++;
+        }
+        if (numZeroes <= K) {
+            // this is probably what I could come up during interview...
+            max = Math.max(max, right-left +1 );
+        }
+    }
+    return max;
+}
