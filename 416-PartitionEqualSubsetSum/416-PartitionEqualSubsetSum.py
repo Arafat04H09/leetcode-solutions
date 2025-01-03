@@ -4,16 +4,17 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
-        s = sum(nums)
-        if s % 2 != 0:
+        target = sum(nums)
+        if target % 2 != 0:
             return False
-        
-        target = s // 2
-        memo = {0}
+
+        target //= 2
+        dp = [False] * (target + 1)
+        dp[0] = True 
 
         for num in nums:
-            for possibleSum in list(memo):
-                memo.add(possibleSum + num)
-        
-        return target in memo
+            for j in range(target, num - 1, -1): 
+                dp[j] = dp[j] or dp[j - num]
+
+        return dp[target]
 
