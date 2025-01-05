@@ -1,29 +1,16 @@
 class Solution(object):
     def shiftingLetters(self, s, shifts):
-        """
-        :type s: str
-        :type shifts: List[List[int]]
-        :rtype: str
-        """
-        n = len(s)
-        shiftEffects = [0] * (n + 1)  
-
-        for start, end, direction in shifts:
-            if direction == 1: 
-                shiftEffects[start] += 1
-                shiftEffects[end + 1] -= 1
-            else:  
-                shiftEffects[start] -= 1
-                shiftEffects[end + 1] += 1
-
-        cumulativeShift = 0
-        for i in range(n):
-            cumulativeShift += shiftEffects[i]
-            shiftEffects[i] = cumulativeShift
-
-        s = list(s)  
-        for i in range(n):
-            shift = shiftEffects[i] % 26  
-            s[i] = chr((ord(s[i]) - ord('a') + shift) % 26 + ord('a'))
-
-        return ''.join(s) 
+        s = list(s)
+        cum_shift = [0]*(len(s)+1)
+        cum = 0
+        for start, end, direc in shifts:
+            if direc == 0:
+                cum_shift[start] -= 1
+                cum_shift[end+1] += 1
+            else:
+                cum_shift[start] += 1
+                cum_shift[end+1] -= 1
+        for i in range(len(s)):
+            cum += cum_shift[i]
+            s[i] = chr((ord(s[i]) - 97 + cum) % 26 + 97)
+        return "".join(s)
