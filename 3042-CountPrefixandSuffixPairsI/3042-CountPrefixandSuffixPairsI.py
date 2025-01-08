@@ -10,6 +10,9 @@ class Solution(object):
                 prefix = words[i]
                 suffix = words[i]
                 word = words[j]
+
+                if len(suffix) > word or len(prefix) > word:
+                    continue
                 
                 if word.startswith(prefix) and word.endswith(suffix):
                     count += 1
