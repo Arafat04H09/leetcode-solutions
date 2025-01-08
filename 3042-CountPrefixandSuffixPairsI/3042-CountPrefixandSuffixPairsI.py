@@ -12,7 +12,7 @@ class Solution(object):
                 word = words[j]
 
                 if len(suffix) > word or len(prefix) > word:
-                    continue
+                    break
                 
                 if word.startswith(prefix) and word.endswith(suffix):
                     count += 1
