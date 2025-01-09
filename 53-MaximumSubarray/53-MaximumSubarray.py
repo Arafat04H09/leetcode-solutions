@@ -4,11 +4,10 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        m = -float("inf")
-        c = 0
+        dp = [0] * len(nums)
+        dp[0] = nums[0]
 
-        for num in nums:
-            c = max(c + num, num)
-            m = max(m, c)
-    
-        return m
+        for i in range(1, len(nums)):
+            dp[i] = max(dp[i -1] + nums[i], nums[i])
+        
+        return max(dp)
