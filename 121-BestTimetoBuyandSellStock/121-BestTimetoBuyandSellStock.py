@@ -1,12 +1,12 @@
 class Solution(object):
     def maxProfit(self, prices):
-        m = 10001
+        minimum = prices[0]
         maxProfit = 0
 
-        for price in prices:
-            if price < m:
-                m = price
-                continue
-            maxProfit = max(maxProfit, price -m)
-        
+        for i in range(1, len(prices)):
+            maxProfit = max(maxProfit, prices[i] - minimum)
+
+            minimum = min(minimum, prices[i])
+
         return maxProfit
+
