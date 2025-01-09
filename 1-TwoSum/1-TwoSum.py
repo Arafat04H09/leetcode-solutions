@@ -12,8 +12,8 @@ class Solution(object):
 
         for i, num in enumerate(nums):
             if target - num in m:
-                return (m[target - num], i)
-            else:
-                m[num] = i
-        
+                return (i, m[target - num])
+            
+            m[num] = i
+
         return -1
