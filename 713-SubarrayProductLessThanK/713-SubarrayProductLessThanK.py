@@ -5,21 +5,20 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        if k == 0:
-            return 0
-
-        count = 0
-        curProduct = 1
+        cur = 1
         start = 0
+        ways = 0
 
         for end in range(len(nums)):
-            curProduct *= nums[end]
+            cur *= nums[end]
 
-            while curProduct >= k and start <= end:
-                curProduct /= nums[start]
+            while start <= end and cur >= k:
+                cur /= nums[start]
                 start += 1
+            
+            if cur < k:
+                ways += (end - start + 1)
 
-            count += end - start + 1
-        return count
+        return ways
 
         
