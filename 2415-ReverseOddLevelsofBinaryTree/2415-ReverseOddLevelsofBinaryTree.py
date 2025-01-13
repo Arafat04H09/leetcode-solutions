@@ -10,17 +10,27 @@ class Solution(object):
         :type root: Optional[TreeNode]
         :rtype: Optional[TreeNode]
         """
-        def traverse(node1, node2, isOdd):
-            if not node1 or not node2:
-                return
-            
-            if isOdd:
-                node1.val, node2.val = node2.val, node1.val
-            
-            traverse(node1.left, node2.right, not isOdd)
-            traverse(node1.right, node2.left, not isOdd)
-        
-        traverse(root.left, root.right, True)
-        return root
+        reverse = False
+        queue = [root]
 
+        while queue:
+            curLevel = []
+            nextQueue = []
+
+            for node in queue:
+                curLevel.append(node.val)
+                if node.left:
+                    nextQueue.append(node.left)
+                if node.right:
+                    nextQueue.append(node.right)
+            
+            curLevelIndex = len(curLevel) - 1
+            if reverse:
+                for node in queue:
+                    node.val = curLevel[curLevelIndex]
+                    curLevelIndex -= 1
+            
+            queue = nextQueue
+            reverse = not reverse
         
+        return root
