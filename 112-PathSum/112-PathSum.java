@@ -14,29 +14,12 @@
  * }
  */
 class Solution {
-    private boolean found = false;
-
     public boolean hasPathSum(TreeNode root, int targetSum) {
-        sumHelper(root, targetSum, 0);
-        return found;
+        if (root == null) { return false;}
+        
+        if (root.left == null && root.right == null) { return targetSum == root.val; }
+
+        return hasPathSum(root.left, targetSum - root.val) || hasPathSum(root.right, targetSum  - root.val);
     }
 
-    public void sumHelper(TreeNode root, int targetSum, int curSum) {
-        if (root == null) {
-            return;
-        }
-
-        curSum += root.val;
-
-        if (root.left == null && root.right == null) {
-            if (curSum == targetSum) {
-                found = true;
-            }
-        } else {
-            sumHelper(root.left, targetSum, curSum);
-            sumHelper(root.right, targetSum, curSum);
-        }
-
-        curSum -= root.val;
-    }
 }
