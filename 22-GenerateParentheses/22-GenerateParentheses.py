@@ -6,17 +6,16 @@ class Solution(object):
         """
         ans = []
 
-        def dfs(s, o, c):
+        def backtrack(open, close, s):
             if len(s) == n * 2:
                 ans.append(s)
                 return
-
-            if o < n:
-                dfs(s + '(', o + 1, c)
             
-            if c < o:
-                dfs(s + ')', o, c + 1)
-            
-        dfs('',0,0)
+            if open < n:
+                backtrack(open + 1, close, s + '(')
 
-        return ans
+            if close < open: 
+                backtrack(open, close + 1, s + ')')
+
+        backtrack(0,0,'')
+        return ans        
