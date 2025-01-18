@@ -1,33 +1,22 @@
 # Definition for a binary tree node.
 # class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution(object):
     def isValidBST(self, root):
         """
-        :type root: TreeNode
+        :type root: Optional[TreeNode]
         :rtype: bool
         """
-        output =[]
-        self.inorder(root, output)
+        def helper(node, lower, upper):
+            if not node:
+                return True
+            
+            if lower < node.val < upper:
+                return helper(node.left, lower, node.val) and helper(node.right, node.val, upper)
+            else:
+                return False
         
-        for i in range(1, len(output)):
-			if output[i-1]>= output[i]:
-				return False
-        
-        return True
-    
-    # Time complexity of inorder traversal is O(n)
-    # Fun fact: Inorder traversal leads to a sorted array if it is 
-    # a Valid Binary Search. Tree.
-    def inorder(self, root, output):
-        if root is None:
-            return
-        
-        self.inorder(root.left, output)
-        output.append(root.val)
-        self.inorder(root.right, output)
-        
+        return helper(root, -float("inf"), float("inf"))
