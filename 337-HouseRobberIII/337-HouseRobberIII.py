@@ -10,28 +10,16 @@ class Solution(object):
         :type root: Optional[TreeNode]
         :rtype: int
         """
-        cache = {}
         def robHelper(root):
             if not root:
                 return 0, 0
 
-            if root in cache:
-                return cache[root]
-            
-            dontRob = 0
-            rob = root.val
+            robLeft = robHelper(root.left)
+            robRight = robHelper(root.right)
 
-            if root.left:
-                dontRob += max(robHelper(root.left))
-                rob += max(robHelper(root.left.left))
-                rob += max(robHelper(root.left.right))
-
-            if root.right:
-                dontRob += max(robHelper(root.right))
-                rob += max(robHelper(root.right.left))
-                rob += max(robHelper(root.right.right))
-
-            cache[root] = (rob, dontRob)
+            rob = root.val + robLeft[1] + robRight[1]
+            dontRob = max(robLeft)  + max(robRight)
+        
             return rob, dontRob
         
         return max(robHelper(root))
