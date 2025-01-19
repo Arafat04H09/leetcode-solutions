@@ -12,17 +12,11 @@ class Solution(object):
         :type high: int
         :rtype: int
         """
-        s = [0]
-
-        def helper(node):
-            if not node:
-                return
-            
-            if low <= node.val <= high:
-                s[0] += node.val
-            
-            helper(node.left)
-            helper(node.right)
+        if not root:
+            return 0
         
-        helper(root)
-        return s[0]
+
+        if root.val > high: return self.rangeSumBST(root.left, low, high)
+        if root.val < low: return self.rangeSumBST(root.right, low, high)
+
+        return root.val + self.rangeSumBST(root.left, low, high) + self.rangeSumBST(root.right, low, high)
