@@ -1,27 +1,30 @@
-class Solution(object):
-    def eventualSafeNodes(self, g):
-        graph = defaultdict(list)
-        outDegrees = [0] * len(g)
+class Solution:
+    def dfs(self, adj, src, vis, recst):
+        vis[src] = True
+        recst[src] = True
+        for x in adj[src]:
+            if not vis[x] and self.dfs(adj, x, vis, recst):
+                return True
+            elif recst[x]:
+                return True
+        recst[src] = False
+        return False
 
-        for node, neighbors in enumerate(g):
-            outDegrees[node] = len(neighbors)
-            for neighbor in neighbors:
-                graph[neighbor].append(node)
-        
-        queue = [terminal for terminal in range(len(g)) if outDegrees[terminal] == 0]
+    def eventualSafeNodes(self, graph):
+        n = len(graph)
+        adj = [[] for _ in range(n)]
+        for i in range(n):
+            for j in range(len(graph[i])):
+                adj[i].append(graph[i][j])
 
-        while queue:
-            nextQueue = []
+        vis = [False] * n
+        recst = [False] * n
+        for i in range(n):
+            if not vis[i]:
+                self.dfs(adj, i, vis, recst)
 
-            for node in queue:
-                for neighbor in graph[node]:
-                    outDegrees[neighbor] -= 1
-                    if outDegrees[neighbor] == 0:
-                        nextQueue.append(neighbor)
-            
-            queue = nextQueue
-
-        return [terminal for terminal in range(len(g)) if outDegrees[terminal] == 0]
-        
-        
-        
+        ans = []
+        for i in range(len(recst)):
+            if not recst[i]:
+                ans.append(i)
+        return ans
