@@ -5,18 +5,21 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        m = defaultdict(int)
-        curSum = 0
-        m[0] = 1
+        sumsOfValues = defaultdict(int) #initialize set
+        sumsOfValues[0] = 1
+        runningSum = 0
         count = 0
 
-        for num in nums:
-            curSum += num
+        for _, num in enumerate(nums):
+            runningSum += num
 
-            if curSum - k in m:
-                count += m[curSum - k]
+            if runningSum - k in sumsOfValues:
+                count += sumsOfValues[runningSum - k]
 
-            m[curSum] += 1
-    
-        return count
+            sumsOfValues[runningSum] += 1
         
+        return count
+        #iterate through array
+        #have running sum 
+        #check if runningSum - k exists in map, 
+        #if so thats one subarray of sum k 
