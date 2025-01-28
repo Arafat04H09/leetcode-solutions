@@ -1,19 +1,15 @@
 class Solution(object):
-    def twoSum(self, nums, target):
-        # initialize a map 
+    def twoSum(self, nums, target): 
+       # store [value] = index
 
-        #iterate through nums
-            #if #target - num in map 
-                # return the old index, new index
-            # else
-                # put target - num in map 
-        
+       # if value in map, then return index
+
         m = defaultdict(int)
 
-        for i, num in enumerate(nums):
+        for index, num in enumerate(nums):
             if target - num in m:
-                return (i, m[target - num])
+                return (m[target - num], index)
             
-            m[num] = i
-
+            m[num] = index
+        
         return -1
