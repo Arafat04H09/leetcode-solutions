@@ -2,29 +2,27 @@ class Solution:
     def threeSum(self, nums):
         sol = set()
         nums.sort()
-        n = len(nums)
 
-        for i in range(n - 2):
-            if i > 0 and nums[i] == nums[i - 1]:
-                i += 1
+        if nums.count(0) >= 3:
+            sol.add((0, 0, 0))
 
-            j = i + 1
-            k = n - 1
+        splitIdx = bisect_left(nums, 0)
+        negatives = nums[:splitIdx]
+        positives = nums[splitIdx:]
 
-            while j < k:
-                s = nums[i] + nums[j] + nums[k]
+        positiveSet = set(positives)
+        negativeSet = set(negatives)
 
-                if s == 0:
-                    sol.add((nums[i], nums[j], nums[k]))
-                    j += 1
-                    k -= 1
-                    while j < k and nums[j] == nums[j - 1]:
-                        j += 1            
-                    while j < k and nums[k] == nums[k + 1]:
-                        k -= 1
-                elif s > 0:
-                    k -= 1
-                else:
-                    j += 1
-        
+        for i in range(len(negatives)):
+            for j in range(i + 1, len(negatives)):
+                target = -(negatives[i] + negatives[j])
+                if target in positiveSet:
+                    sol.add((negatives[i], negatives[j], target))
+
+        for i in range(len(positives)):
+            for j in range(i + 1, len(positives)):
+                target = -(positives[i] + positives[j])
+                if target in negativeSet:
+                    sol.add((positives[i], positives[j], target))
+
         return list(sol)
