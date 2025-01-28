@@ -5,21 +5,14 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        sumsOfValues = defaultdict(int) #initialize set
-        sumsOfValues[0] = 1
-        runningSum = 0
         count = 0
-
-        for _, num in enumerate(nums):
-            runningSum += num
-
-            if runningSum - k in sumsOfValues:
-                count += sumsOfValues[runningSum - k]
-
-            sumsOfValues[runningSum] += 1
+        sums = 0
+        d = dict()
+        d[0] = 1
         
-        return count
-        #iterate through array
-        #have running sum 
-        #check if runningSum - k exists in map, 
-        #if so thats one subarray of sum k 
+        for i in range(len(nums)):
+            sums += nums[i]
+            count += d.get(sums-k,0)
+            d[sums] = d.get(sums,0) + 1
+        
+        return(count)
