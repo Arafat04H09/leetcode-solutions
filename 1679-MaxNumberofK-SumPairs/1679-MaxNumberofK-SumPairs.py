@@ -5,19 +5,20 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        nums.sort() 
-        l, r = 0, len(nums) - 1
-        c = 0
+        nums.sort()
+        pops = 0
+        left, right = 0, len(nums) - 1
 
-        while l < r:
-            s = nums[l] + nums[r]
+        while left < right:
+            s = nums[left] + nums[right]
+
             if s == k:
-                c+= 1
-                l+= 1
-                r-= 1
+                pops += 1
+                left += 1
+                right -= 1
             elif s > k:
-                r -= 1
+                right -= 1
             else:
-                l += 1
-        
-        return c
+                left += 1
+    
+        return pops
