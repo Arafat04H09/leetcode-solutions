@@ -1,14 +1,19 @@
 class Solution(object):
     def isValid(self, s):
         stack = []
-        matching = {')': '(', '}': '{', ']': '['}  
 
         for ch in s:
             if ch in '([{':
                 stack.append(ch)
             else:
-                if not stack or (ch in matching and stack[-1] != matching[ch]):
+                if not stack:
                     return False
-                stack.pop() 
-
-        return len(stack) == 0 
+                
+                if (ch == ')' and stack[-1] == '(') or \
+                   (ch == '}' and stack[-1] == '{') or \
+                   (ch == ']' and stack[-1] == '['):
+                    stack.pop()  
+                else:
+                    return False 
+        
+        return len(stack) == 0
