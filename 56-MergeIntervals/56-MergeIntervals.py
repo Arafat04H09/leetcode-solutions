@@ -7,24 +7,19 @@ class Solution(object):
         if not intervals:
             return []
 
-        line = defaultdict(int)
+        intervals.sort() #sort by start
 
-        for start, end in intervals:
-            line[start] += 1
-            line[end] -= 1
-        
-        cur = 0
         ans = []
+        i = 0
         start = None
 
-        for point in sorted(line.keys()):
-            if start is None and cur == 0:
-                start = point
-            
-            cur += line[point]
-
-            if start is not None and cur == 0:
-                ans.append([start, point]) #end
-                start = None
+        while i < len(intervals):
+            start = intervals[i][0]
+            end = intervals[i][1]
+            while i < len(intervals) and intervals[i][0] <= end: #while next start is in range of prev end
+                end = max(end, intervals[i][1])
+                i+= 1
+            ans.append([start, end])
         
         return ans
+        
