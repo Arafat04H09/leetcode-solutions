@@ -5,8 +5,8 @@ class Solution(object):
         :rtype: List[List[str]]
         """
         m = defaultdict(list)
-        
+
         for s in strs:
             m[tuple(sorted(s))].append(s)
-        
-        return [list(s) for s in m.values()]
+
+        return list(m.values())
