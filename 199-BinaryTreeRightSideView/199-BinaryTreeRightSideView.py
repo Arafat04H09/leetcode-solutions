@@ -12,22 +12,23 @@ class Solution(object):
         """
         if not root:
             return []
-        
-        queue = deque([root])  
-        res = []  
-        
-        while queue:
-            level_size = len(queue)  
             
-            for i in range(level_size):
-                node = queue.popleft()
-                
-                if i == level_size - 1:
-                    res.append(node.val)
-                
+        result = [root.val]
+        queue = [root]
+
+        while queue:
+            nextQueue = []
+
+            for node in queue:
                 if node.left:
-                    queue.append(node.left)
+                    nextQueue.append(node.left)
                 if node.right:
-                    queue.append(node.right)
+                    nextQueue.append(node.right)
+            
+            if nextQueue:
+                result.append(nextQueue[-1].val)
+            queue = nextQueue
         
-        return res
+        return result
+
+
