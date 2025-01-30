@@ -10,25 +10,19 @@ class Solution(object):
         :type root: Optional[TreeNode]
         :rtype: List[int]
         """
+        result = []
         if not root:
-            return []
-            
-        result = [root.val]
-        queue = [root]
+            return result
 
-        while queue:
-            nextQueue = []
-
-            for node in queue:
-                if node.left:
-                    nextQueue.append(node.left)
-                if node.right:
-                    nextQueue.append(node.right)
+        def dfs(node, depth):
+            if not node:
+                return
             
-            if nextQueue:
-                result.append(nextQueue[-1].val)
-            queue = nextQueue
+            if depth == len(result):
+                result.append(node.val)
+            
+            dfs(node.right, depth + 1)
+            dfs(node.left, depth + 1)
         
+        dfs(root, 0)
         return result
-
-
