@@ -9,13 +9,9 @@ class Solution(object):
         dpMin = [0] * n
 
         dpMax[0] = dpMin[0] = nums[0]
-        result = nums[0]
 
         for idx in range(1, n):
-            num = nums[idx]
-            dpMax[idx] = max(dpMax[idx - 1] * num, dpMin[idx - 1] * num, num)
-            dpMin[idx] = min(dpMin[idx - 1] * num, dpMax[idx - 1] * num, num)
+            dpMax[idx] = max(dpMax[idx - 1] * nums[idx], dpMin[idx - 1] * nums[idx], nums[idx])
+            dpMin[idx] = min(dpMin[idx - 1] * nums[idx], dpMax[idx - 1] * nums[idx], nums[idx])
 
-            result = max(result, dpMax[idx])
-
-        return result
+        return max(dpMax)
