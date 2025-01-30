@@ -4,14 +4,18 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        dpMax = [0] * len(nums)
-        dpMin = [0] * len(nums)
-        dpMax[0] = nums[0]
-        dpMin[0] = nums[0]
+        n = len(nums)
+        dpMax = [0] * n
+        dpMin = [0] * n
 
-        for i in range(1, len(nums)):
-            dpMax[i] = max(dpMax[i - 1] * nums[i], dpMin[i -1] * nums[i], nums[i])
-            dpMin[i] = min(dpMax[i - 1] * nums[i], dpMin[i -1] * nums[i], nums[i])
-        
-        
-        return max(dpMax)
+        dpMax[0] = dpMin[0] = nums[0]
+        result = nums[0]
+
+        for idx in range(1, n):
+            num = nums[idx]
+            dpMax[idx] = max(dpMax[idx - 1] * num, dpMin[idx - 1] * num, num)
+            dpMin[idx] = min(dpMin[idx - 1] * num, dpMax[idx - 1] * num, num)
+
+            result = max(result, dpMax[idx])
+
+        return result
