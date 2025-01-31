@@ -5,12 +5,4 @@ class Solution(object):
         :type t: str
         :rtype: bool
         """
-        m = defaultdict(int)
-
-        for ch in s:
-            m[ch] += 1
-        
-        for ch in t:
-            m[ch] -= 1
-        
-        return all(value == 0 for value in m.values())
+        return sorted(s) == sorted(t)
