@@ -4,10 +4,12 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
-        c = Counter(nums)
+        s = set()
 
-        for freq in c.values():
-            if freq > 1:
+        for num in nums:
+            if num in s:
                 return True
-        
+            
+            s.add(num)
+
         return False
