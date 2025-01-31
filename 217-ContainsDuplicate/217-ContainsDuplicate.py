@@ -4,10 +4,10 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
-        nums.sort()
+        c = Counter(nums)
 
-        for i in range(1, len(nums)): 
-            if nums[i] == nums[i - 1]:
+        for freq in c.values():
+            if freq > 1:
                 return True
         
         return False
