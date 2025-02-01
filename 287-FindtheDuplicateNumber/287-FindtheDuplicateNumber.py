@@ -4,11 +4,11 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        m = defaultdict(int)
-
         for num in nums:
-            m[num] += 1
-            if m[num] > 1:
-                return num
+            a = abs(num)
+
+            if nums[a] < 0:
+                return a
+            nums[a] = -nums[a]
         
-        return -1
+        return l
