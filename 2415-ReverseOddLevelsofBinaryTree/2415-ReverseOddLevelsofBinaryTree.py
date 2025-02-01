@@ -10,26 +10,26 @@ class Solution(object):
         :type root: Optional[TreeNode]
         :rtype: Optional[TreeNode]
         """
-        reverse = False
         queue = [root]
+        reverse = False
 
         while queue:
-            curLevel = []
             nextQueue = []
+            curLevel = []
 
             for node in queue:
                 curLevel.append(node.val)
+
                 if node.left:
                     nextQueue.append(node.left)
                 if node.right:
                     nextQueue.append(node.right)
             
-            curLevelIndex = len(curLevel) - 1
             if reverse:
+                l = len(curLevel) - 1
                 for node in queue:
-                    node.val = curLevel[curLevelIndex]
-                    curLevelIndex -= 1
-            
+                    node.val = curLevel[l]
+                    l -= 1
             queue = nextQueue
             reverse = not reverse
         
