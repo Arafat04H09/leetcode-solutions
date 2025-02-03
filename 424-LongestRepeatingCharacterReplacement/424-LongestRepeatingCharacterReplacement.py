@@ -15,10 +15,11 @@ class Solution(object):
             maxFreq = max(maxFreq, freq[ch]) #updating the max frequency
 
             if end - start + 1 - k > maxFreq:
+                if s[start] == maxFreq:
+                    maxFreq -= 1
                 freq[s[start]] -= 1
                 start += 1
             
-            maxFreq = max(freq.values())
             longest = max(longest, end - start + 1)
         
         return longest
