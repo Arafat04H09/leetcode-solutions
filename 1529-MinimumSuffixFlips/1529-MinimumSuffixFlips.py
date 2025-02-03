@@ -4,12 +4,14 @@ class Solution(object):
         :type target: str
         :rtype: int
         """
-        boolean = '0'
-        flips = 0
+        boolean = '0' #represents 0, True = 1
+        flips = 0 #number of flips
 
-        for i in range(len(target)):
-            if target[i] != boolean:
-                boolean = '1' if boolean == '0' else '0'
+        for _, num in enumerate(target):
+            if num != boolean: 
                 flips += 1
-
+                boolean = '0' if num == '0' else '1'
+        
         return flips
+
+
