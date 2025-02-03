@@ -8,7 +8,6 @@ class Solution(object):
         freq = defaultdict(int)
         maxFreq = 0
         start = 0
-        longest = 0
 
         for end, ch in enumerate(s): #unpack the index, value pairs as tuples with an iterator 
             freq[ch] += 1
@@ -20,9 +19,7 @@ class Solution(object):
                 freq[s[start]] -= 1
                 start += 1
             
-            longest = max(longest, end - start + 1)
-        
-        return longest
+        return end - start + 1
             
 
         
