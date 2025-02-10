@@ -4,21 +4,12 @@ class Solution(object):
         :type s: str
         :rtype: str
         """
-        indicesToDelete = set()
-        letterIndices = []
-
+        ans = []
         for i, ch in enumerate(s):
-            if ch.isdigit(): #delete this and the closest non-digit to its left
-                indicesToDelete.add(i)
-                if len(letterIndices) > 0:
-                    indicesToDelete.add(letterIndices.pop())
-            else: #add this letter indice to letterindices
-                letterIndices.append(i)
-        
-        ans = ''
+            if ch.isdigit(): 
+                if len(ans) > 0: #remove the laast character in the ans 
+                    ans.pop()
+            else: 
+                ans.append(ch)
 
-        for i, ch in enumerate(s):
-            if i not in indicesToDelete:
-                ans += ch
-        
-        return ans
+        return ''.join(ans)
