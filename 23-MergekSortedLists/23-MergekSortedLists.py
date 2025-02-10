@@ -14,11 +14,10 @@ class Solution(object):
         ans = dummy = ListNode(None)
 
         while heap:
-            val, node = heapq.heappop(heap)  
-            dummy.next = node  
+            dummy.next = heapq.heappop(heap)[1]  
             dummy = dummy.next
 
-            if node.next:  
-                heapq.heappush(heap, (node.next.val, node.next))  
+            if dummy.next:  
+                heapq.heappush(heap, (dummy.next.val, dummy.next))  
 
         return ans.next
