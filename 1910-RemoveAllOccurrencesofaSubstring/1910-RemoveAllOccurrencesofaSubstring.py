@@ -5,15 +5,8 @@ class Solution(object):
         :type part: str
         :rtype: str
         """
-        ans = []
+        while part in s:
+            index = s.index(part)
+            s = s[:index] + s[index+len(part):]
+        return s
 
-        partLen = len(part)
-        last = part[-1]  
-
-        for ch in s:
-            ans.append(ch)
-
-            if ch == last and len(ans) >= partLen and ''.join(ans[-partLen:]) == part:
-                del ans[-partLen:] 
-        
-        return ''.join(ans)
