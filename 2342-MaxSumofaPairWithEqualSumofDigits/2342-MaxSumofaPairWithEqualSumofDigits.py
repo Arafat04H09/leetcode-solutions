@@ -5,18 +5,18 @@ class Solution(object):
         :rtype: int
         """
         res = -1
-        m = defaultdict(list)
-
+        m = defaultdict(lambda: [0, 0])  
         for num in nums:
-            s = 0
-            x = num
-            while x > 0:
-                s += x % 10 #get digit
-                x //= 10 
-
-            if len(m[s]) > 0:
-                res =  max(-m[s][0] + num, res)#get the biggest number 
+            s = sum(int(digit) for digit in str(num))
             
-            heapq.heappush(m[s], -num) #add number to max heap 
+            if num > m[s][0]:
+                m[s][1] = m[s][0]
+                m[s][0] = num
+            elif num > m[s][1]:
+                m[s][1] = num
+            
+            if m[s][1] > 0:
+                res = max(res, m[s][0] + m[s][1])
         
-        return res 
+        return res
+
