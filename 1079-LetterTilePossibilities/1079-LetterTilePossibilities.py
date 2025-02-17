@@ -1,26 +1,13 @@
-class Solution:
-    def numTilePossibilities(self, tiles: str) -> int:
-        count = Counter(tiles)
-        letters = list(count.keys())
-        freq = [count[ch] for ch in letters]
-        
-        res = 0
+def numTilePossibilities(self, tiles: str) -> int:
+        letter_count = collections.Counter(tiles)
 
-        def helper(i, cur):
-            nonlocal res
-            if i == len(letters):
-                total = sum(cur)
-                if total > 0:
-                    ways = math.factorial(total)
-                    for c in cur:
-                        ways //= math.factorial(c)
-                    res += ways
-                return
-            
-            for k in range(freq[i] + 1):
-                cur.append(k)
-                helper(i + 1, cur)
-                cur.pop()
-        
-        helper(0, [])
-        return res
+        def dfs():
+            count = 0
+            for tile in letter_count:
+                if letter_count[tile] == 0:
+                    continue
+                letter_count[tile] -= 1
+                count += dfs() + 1 
+                letter_count[tile] += 1
+            return count   
+        return dfs()
