@@ -1,3 +1,4 @@
+# Last updated: 8/19/2025, 1:01:46 AM
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, val=0, left=None, right=None):
@@ -10,19 +11,24 @@ class Solution(object):
         :type root: Optional[TreeNode]
         :rtype: List[int]
         """
-        result = []
         if not root:
-            return result
+            return []
+            
+        ans = []
+        queue = deque([root])
 
-        def dfs(node, depth):
-            if not node:
-                return
-            
-            if depth == len(result):
-                result.append(node.val)
-            
-            dfs(node.right, depth + 1)
-            dfs(node.left, depth + 1)
+        while queue:
+            numNodes = len(queue)
+
+            for i in range(numNodes):
+                node = queue.popleft()
+
+                if i  == numNodes - 1:
+                    ans.append(node.val)
+                
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
         
-        dfs(root, 0)
-        return result
+        return ans
